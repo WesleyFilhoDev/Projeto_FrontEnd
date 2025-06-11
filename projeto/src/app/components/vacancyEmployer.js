@@ -2,7 +2,7 @@
 import Image from "next/image";
 import VacancyCard from "./vacancyCard";
 
-export default function VacancyPage() {
+export default function VacancyEmployer() {
   const vacancies = [
     {
       id: 1,
@@ -18,34 +18,40 @@ export default function VacancyPage() {
     },
   ];
 
-  function handleDesistir(id) {
-    console.log(`Desistiu da vaga ${id}`);
-    // Lógica
-  }
-
   return (
     <main className="min-h-screen bg-white px-4 pt-6 pb-10 max-w-md mx-auto font-sans">
-      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-2">
-          <div className="">
-            <Image src="/logopages.png" alt="logo" width={150} height={40} />
+          <div className="absolute top-4 left-4 bg-white p-1 rounded-xl w-max">
+            <Image
+              src="/Ti.png"
+              alt="Logo"
+              width={150}
+              height={40}
+              className="rounded-lg"
+            />
           </div>
         </div>
         <Image
-          src="/user.png"
-          alt="Avatar"
+          src="/man.png"
+          alt="/Avatar"
           width={36}
           height={36}
           className="rounded-full"
         />
       </div>
 
-      {/* Título e subtítulo */}
-      <h1 className="text-2xl font-bold text-[#0A1D56] mb-1">Minhas vagas</h1>
-      <p className="text-gray-600 text-base mb-4">Vagas aplicadas:</p>
+      <p className="text-[#0A2753] text-base mb-4">Olá, Daniel!</p>
+      <h1 className="text-3xl font-bold text-[#0B2568] mb-1">
+        Quem você está procurando?
+      </h1>
+      <div className="flex justify-between items-center mb-4">
+        <p className="text-[#0A2753] text-base">Vagas publicadas:</p>
+        <button className="flex items-center gap-1 bg-[#5A2FDA] text-white px-4 py-1.5 rounded-full text-sm font-medium shadow-md hover:bg-[#5b21b6] transition">
+          Adicionar
+        </button>
+      </div>
 
-      {/* Lista de Vagas usando VacancyCard */}
       <div className="flex flex-col gap-4">
         {vacancies.map((vaga) => (
           <VacancyCard
@@ -53,8 +59,8 @@ export default function VacancyPage() {
             image={vaga.image}
             title={vaga.title}
             location={vaga.location}
-            buttonLabel="Desistir"
-            onButtonClick={() => handleDesistir(vaga.id)}
+            buttonLabel={"Exibir candidatos"}
+            onButtonClick={() => handleExibirCandidatos(vaga.id)}
           />
         ))}
       </div>
