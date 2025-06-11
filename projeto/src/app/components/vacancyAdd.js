@@ -43,7 +43,7 @@ export default function VacancyAdd() {
               htmlFor={label.toLowerCase()}
               className="text-[#0A2753] font-semibold mb-1"
             >
-                {label}:
+              {label}:
             </label>
             <input
               type={label === "Salário" ? "number" : "text"}
@@ -53,3 +53,14 @@ export default function VacancyAdd() {
             />
           </div>
         ))}
+
+        <button
+          type="submit"
+          className="bg-[#673DE6] text-white rounded-full py-2 text-center mt-4 hover:bg-[#5a32cc] transition"
+        >
+          Criar nova vaga
+        </button>
+      </form>
+    </main>
+  );
+}
