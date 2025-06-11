@@ -4,11 +4,11 @@ import VacancyCard from "./vacancycard";
 
 export default function ContratantePage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center p-4">
+    <div className="min-h-screen bg-white px-4 pt-6 pb-10 max-w-md mx-auto font-sans">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-md p-6">
         {/* Topo */}
         <div className="flex justify-between items-center">
-          <Image src="/logohome.png" alt="Logo" width={150} height={40} />
+          <Image src="/logopages.png" alt="Logo" width={150} height={40} />
           <Image
             src="/user.png"
             alt="Usuário"
@@ -20,7 +20,7 @@ export default function ContratantePage() {
 
         {/* Saudação */}
         <div className="mt-4">
-          <p className="text-sm text-gray-600">Olá, Matheus</p>
+          <p className="text-sm text-gray-600">Olá,</p>
           <h1 className="text-xl font-bold text-gray-900 leading-tight">
             Quem você está <br />
             <span className="text-indigo-800">procurando?</span>
@@ -41,11 +41,13 @@ export default function ContratantePage() {
             image="/barista.png"
             title="Barista"
             location="Espinheiro, Recife"
+            buttonLabel="Exibir Candidatos"
           />
           <VacancyCard
             image="/atendente.png"
             title="Atendente"
             location="Boa Viagem, Recife"
+            buttonLabel="Exibir Candidatos"
           />
         </div>
       </div>
