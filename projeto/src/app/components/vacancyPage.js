@@ -8,13 +8,13 @@ export default function VacancyPage() {
       id: 1,
       title: "Barista",
       location: "Espinheiro, Recife",
-      image: "/eletricista.jpg",
+      image: "/barista.png",
     },
     {
       id: 2,
       title: "Atendente",
       location: "Boa Viagem, Recife",
-      image: "/eletricista.jpg",
+      image: "/atendente.png",
     },
   ];
 
