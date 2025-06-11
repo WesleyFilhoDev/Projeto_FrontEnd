@@ -54,14 +54,40 @@ export default function VacancyEmployer() {
 
       <div className="flex flex-col gap-4">
         {vacancies.map((vaga) => (
-          <VacancyCard
+          <div
             key={vaga.id}
-            image={vaga.image}
-            title={vaga.title}
-            location={vaga.location}
-            buttonLabel={"Exibir candidatos"}
-            onButtonClick={() => handleExibirCandidatos(vaga.id)}
-          />
+            className="relative rounded-2xl overflow-hidden shadow-md"
+          >
+            <Image
+              src={vaga.image}
+              alt={vaga.title}
+              width={400}
+              height={250}
+              className="w-full h-48 object-cover"
+            />
+            <button
+              onClick={() => handleDeletar(vaga.id)}
+              className="absolute top-3 left-3 bg-red-500 opacity-49 text-white text-xs px-3 py-1 rounded-full shadow hover:bg-red-600 transition"
+            >
+              Deletar vaga
+            </button>
+            <button
+              onClick={() => handleEditar(vaga.id)}
+              className="absolute top-10 left-3 bg-white opacity-49 text-[#0B2568] text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition"
+            >
+              Editar dados da vaga
+            </button>
+            <div className="absolute bottom-3 left-3 text-white">
+              <h2 className="text-lg font-semibold">{vaga.title}</h2>
+              <p className="text-sm">{vaga.location}</p>
+            </div>
+            <button
+              onClick={() => handleExibirCandidatos(vaga.id)}
+              className="absolute bottom-3 right-3 bg-white text-[#0B2568] opacity-49 text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition"
+            >
+              Mostrar progresso
+            </button>
+          </div>
         ))}
       </div>
     </main>
