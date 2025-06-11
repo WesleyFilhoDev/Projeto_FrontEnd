@@ -79,6 +79,12 @@ export default function VacancyEmployer() {
               <h2 className="text-lg font-semibold">{vaga.title}</h2>
               <p className="text-sm">{vaga.location}</p>
             </div>
+            <button
+              onClick={() => handleExibirCandidatos(vaga.id)}
+              className="absolute bottom-3 right-3 bg-white text-[#0B2568] opacity-49 text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition"
+            >
+              Mostrar progresso
+            </button>
           </div>
         ))}
       </div>
