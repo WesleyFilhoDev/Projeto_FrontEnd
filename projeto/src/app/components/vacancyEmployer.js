@@ -70,10 +70,16 @@ export default function VacancyEmployer() {
               className="w-full h-48 object-cover"
             />
             <button
-              onClick={() => handleDesistir(vaga.id)}
+              onClick={() => handleDeletar(vaga.id)}
               className="absolute top-3 left-3 bg-red-500 opacity-49 text-white text-xs px-3 py-1 rounded-full shadow hover:bg-red-600 transition"
             >
-              Deletar Vaga
+              Deletar vaga
+            </button>
+            <button
+              onClick={() => handleEditar(vaga.id)}
+              className="absolute top-10 left-3 bg-white opacity-49 text-[#0B2568] text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition"
+            >
+              Editar dados da vaga
             </button>
             <div className="absolute bottom-3 left-3 text-white">
               <h2 className="text-lg font-semibold">{vaga.title}</h2>
