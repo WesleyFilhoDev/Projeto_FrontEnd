@@ -22,6 +22,24 @@ export default function VacancyAdd() {
           className="rounded-full"
         />
       </div>
-    </main>
-  );
-}
+
+      <h1 className="text-3xl font-bold text-[#0B2568] mb-6 leading-tight">
+        Digite os dados <br /> da nova vaga
+      </h1>
+
+      <form className="flex flex-col gap-4">
+        {[
+          "Título",
+          "Tipo de trabalho",
+          "Descrição",
+          "Requisitos",
+          "Salário",
+          "Endereço",
+          "Bairro",
+          "Cidade",
+        ].map((label) => (
+          <div key={label} className="flex flex-col">
+            <label
+              htmlFor={label.toLowerCase()}
+              className="text-[#0A2753] font-semibold mb-1"
+            ></label>
