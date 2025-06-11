@@ -18,10 +18,6 @@ export default function VacancyEmployer() {
     },
   ];
 
-  const handleDesistir = (id) => {
-    console.log(`Desistiu da vaga ${id}`);
-  };
-
   return (
     <main className="min-h-screen bg-white px-4 pt-6 pb-10 max-w-md mx-auto font-sans">
       <div className="flex justify-between items-center mb-6">
