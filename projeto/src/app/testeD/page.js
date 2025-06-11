@@ -1,12 +1,11 @@
 import Image from "next/image";
-import VacancyAdd from "../components/vacancyAdd";
-import VacancyEmployer from "../components/vacancyEmployer";
-import EditVacancy from "../components/editVacancy";
+import VacancyPage from "../components/vacancyPage";
+import EmployerSign from "../components/employerSign";
 
 export default function Home() {
   return (
     <>
-      <VacancyEmployer />
+      <EmployerSign />
     </>
   );
 }
