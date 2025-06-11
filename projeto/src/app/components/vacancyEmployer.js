@@ -18,6 +18,10 @@ export default function VacancyEmployer() {
     },
   ];
 
+  const handleDesistir = (id) => {
+    console.log(`Desistiu da vaga ${id}`);
+  };
+
   return (
     <main className="min-h-screen bg-white px-4 pt-6 pb-10 max-w-md mx-auto font-sans">
       <div className="flex justify-between items-center mb-6">
@@ -54,14 +58,28 @@ export default function VacancyEmployer() {
 
       <div className="flex flex-col gap-4">
         {vacancies.map((vaga) => (
-          <VacancyCard
+          <div
             key={vaga.id}
-            image={vaga.image}
-            title={vaga.title}
-            location={vaga.location}
-            buttonLabel={"Exibir candidatos"}
-            onButtonClick={() => handleExibirCandidatos(vaga.id)}
-          />
+            className="relative rounded-2xl overflow-hidden shadow-md"
+          >
+            <Image
+              src={vaga.image}
+              alt={vaga.title}
+              width={400}
+              height={250}
+              className="w-full h-48 object-cover"
+            />
+            <button
+              onClick={() => handleDesistir(vaga.id)}
+              className="absolute top-3 left-3 bg-red-500 opacity-49 text-white text-xs px-3 py-1 rounded-full shadow hover:bg-red-600 transition"
+            >
+              Deletar Vaga
+            </button>
+            <div className="absolute bottom-3 left-3 text-white">
+              <h2 className="text-lg font-semibold">{vaga.title}</h2>
+              <p className="text-sm">{vaga.location}</p>
+            </div>
+          </div>
         ))}
       </div>
     </main>
