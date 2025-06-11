@@ -1,10 +1,10 @@
 import Image from "next/image";
-import VacancyEmployer from "../components/vacancyEmployer";
+import VacancyAdd from "../components/vacancyAdd";
 
 export default function Home() {
   return (
     <>
-      <VacancyEmployer />
+      <VacancyAdd />
     </>
   );
 }
