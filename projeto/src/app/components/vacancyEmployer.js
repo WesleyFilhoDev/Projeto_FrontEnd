@@ -24,7 +24,7 @@ export default function VacancyEmployer() {
         <div className="flex items-center gap-2">
           <div className="absolute top-4 left-4 bg-white p-1 rounded-xl w-max">
             <Image
-              src="/Ti.png"
+              src="/logopages.png"
               alt="Logo"
               width={150}
               height={40}
@@ -33,7 +33,7 @@ export default function VacancyEmployer() {
           </div>
         </div>
         <Image
-          src="/man.png"
+          src="/user.png"
           alt="/Avatar"
           width={36}
           height={36}
