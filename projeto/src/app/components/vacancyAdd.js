@@ -7,7 +7,7 @@ export default function VacancyAdd() {
       <div className="flex justify-between items-center mb-6">
         <div className="bg-white p-1 rounded-xl w-max">
           <Image
-            src="/Ti.png"
+            src="/logopages.png"
             alt="Logo"
             width={150}
             height={40}
@@ -15,7 +15,7 @@ export default function VacancyAdd() {
           />
         </div>
         <Image
-          src="/man.png"
+          src="/user.png"
           alt="Avatar"
           width={36}
           height={36}
