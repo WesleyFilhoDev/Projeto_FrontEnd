@@ -92,7 +92,6 @@ export default function EmployeeRegister() {
           )
         )}
 
-      
         <div className="flex flex-col">
           <label className="text-[#0A2753] font-semibold mb-1">
             Skills (digite e clique em adicionar):
@@ -141,7 +140,6 @@ export default function EmployeeRegister() {
         </button>
       </form>
 
-      
       <p className="mt-6 text-center">
         <button
           onClick={() => router.push("/employeeLogin")}
