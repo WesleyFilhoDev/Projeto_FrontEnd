@@ -20,7 +20,6 @@ export default function UserProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
 
-  // Substitua seu useEffect por este
   useEffect(() => {
     const fetchUserData = async () => {
       console.log("1. Iniciando busca de dados do perfil...");
@@ -94,9 +93,6 @@ export default function UserProfile() {
 
     try {
       currentUser.set("name", `${formData.name} ${formData.lastName}`);
-
-      // --- AQUI ESTÁ A CORREÇÃO ---
-      // Garante que o username e o email fiquem sempre sincronizados
       currentUser.set("email", formData.email);
       currentUser.set("username", formData.email);
       // --------------------------
@@ -132,7 +128,7 @@ export default function UserProfile() {
     <main className="min-h-screen bg-white px-6 pt-6 pb-10 max-w-md mx-auto font-sans">
       <div className="flex justify-between items-center mb-6">
         <div className="bg-white p-1 rounded-xl w-max">
-          <Image src="/logopages.png" alt="Logo" width={40} height={40} />
+          <Image src="/logopages.png" alt="Logo" width={150} height={40} />
         </div>
       </div>
 

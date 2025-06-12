@@ -1,23 +1,21 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react"; // Importamos useState e useEffect
-import Link from "next/link"; // 1. Importamos o Link para a navegação
-import Parse from "../services/back4app"; // Importamos a conexão
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Parse from "../services/back4app";
 import { useRouter } from "next/navigation";
 
 export default function VacancyEmployer() {
   const router = useRouter();
-  // 2. Criamos estados para guardar as vagas e controlar o carregamento
   const [vacancies, setVacancies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState("");
 
-  // 3. useEffect para buscar os dados do Back4App quando a página carrega
   useEffect(() => {
     const fetchVacancies = async () => {
       const currentUser = Parse.User.current();
       if (!currentUser) {
-        router.push("/employer-login"); // Garante que apenas usuários logados acessem
+        router.push("/employer-login");
         return;
       }
       setUserName(currentUser.get("name"));
@@ -38,8 +36,8 @@ export default function VacancyEmployer() {
           const formattedVacancies = results.map((v) => ({
             id: v.id,
             title: v.get("title"),
-            location: v.get("address"), // Usando a coluna 'address'
-            image: v.get("image")?.url() || "/barista.png", // Usa uma imagem padrão se não houver
+            location: v.get("address"),
+            image: v.get("image")?.url() || "/barista.png",
           }));
           setVacancies(formattedVacancies);
         }
@@ -52,7 +50,6 @@ export default function VacancyEmployer() {
     fetchVacancies();
   }, [router]);
 
-  // 4. Implementamos a função para deletar
   const handleDeletar = async (vacancyId) => {
     if (window.confirm("Tem certeza que deseja deletar esta vaga?")) {
       const Vacancy = Parse.Object.extend("AvailableVacancy");
@@ -85,28 +82,30 @@ export default function VacancyEmployer() {
             />
           </div>
         </div>
-        <Image
-          src="/user.png"
-          alt="/Avatar"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
+
+        <Link href="/user">
+          <Image
+            src="/user.png"
+            alt="Avatar do Usuário"
+            width={36}
+            height={36}
+            className="rounded-full cursor-pointer"
+          />
+        </Link>
       </div>
+
       <p className="text-[#0A2753] text-base mb-4">Olá, {userName}!</p>
       <h1 className="text-3xl font-bold text-[#0B2568] mb-1">
         Quem você está procurando?
       </h1>
       <div className="flex justify-between items-center mb-4">
         <p className="text-[#0A2753] text-base">Vagas publicadas:</p>
-
-        <Link href="/vaga/adicionar">
+        <Link href="/vagas/adicionar">
           <button className="flex items-center gap-1 bg-[#5A2FDA] text-white px-4 py-1.5 rounded-full text-sm font-medium shadow-md hover:bg-[#5b21b6] transition">
             Adicionar
           </button>
         </Link>
       </div>
-
       <div className="flex flex-col gap-4">
         {vacancies.map((vaga) => (
           <div
@@ -126,13 +125,11 @@ export default function VacancyEmployer() {
             >
               Deletar vaga
             </button>
-
             <Link href={`/vagas/editar/${vaga.id}`}>
               <button className="absolute top-10 left-3 bg-white opacity-49 text-[#0B2568] text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition">
                 Editar dados da vaga
               </button>
             </Link>
-
             <div className="absolute bottom-3 left-3 text-white">
               <h2 className="text-lg font-semibold">{vaga.title}</h2>
               <p className="text-sm">{vaga.location}</p>

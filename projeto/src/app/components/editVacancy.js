@@ -79,7 +79,7 @@ export default function EditVacancy() {
       await vacancyToUpdate.save();
 
       alert("Vaga atualizada com sucesso!");
-      router.push("/dashboard-contratante"); // Adapte essa rota se necessário
+      router.push("/vacancyEmployer");
     } catch (error) {
       console.error("Erro ao atualizar vaga:", error);
       alert(`Erro: ${error.message}`);
@@ -104,7 +104,6 @@ export default function EditVacancy() {
 
   return (
     <main className="min-h-screen bg-white px-6 pt-6 pb-10 max-w-md mx-auto font-sans shadow-md">
-      {/* ... seu cabeçalho ... */}
       <h1 className="text-3xl font-bold text-[#0B2568] mb-6 leading-tight">
         Altere os dados <br /> da vaga
       </h1>

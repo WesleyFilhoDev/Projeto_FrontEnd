@@ -1,39 +1,35 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react"; // 1. Importar o useState
-import Parse from "../services/back4app"; // 2. Importar o serviço de conexão
+import React, { useState } from "react";
+import Parse from "../services/back4app";
+import Link from "next/link";
+import { useRouter } from "next/navigation"; // 1. Importar o useRouter
 
 export default function EmployerLogin() {
-  // 3. Criar um estado para e-mail e senha
+  const router = useRouter(); // 2. Inicializar o router
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 4. Função principal que lida com o login no Back4App
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita que a página recarregue
+    e.preventDefault();
 
     try {
-      // Passo A: Tenta fazer o login com e-mail e senha
       const loggedInUser = await Parse.User.logIn(email, password);
-
-      // Passo B: VERIFICA se o usuário logado é um CONTRATANTE
       const Employer = Parse.Object.extend("Employer");
       const query = new Parse.Query(Employer);
-      query.equalTo("user", loggedInUser); // Filtra perfis pelo ponteiro do usuário logado
+      query.equalTo("user", loggedInUser);
       const employerProfile = await query.first();
 
       if (employerProfile) {
-        // Se encontrou um perfil de contratante, o login é um sucesso!
         alert(`Login bem-sucedido! Bem-vindo(a), ${loggedInUser.get("name")}!`);
-        // Aqui, você pode redirecionar para o painel do contratante
-        // window.location.href = '/dashboard-contratante';
+
+        router.push("/vacancyEmployer");
       } else {
-        // Se não encontrou, significa que é um trabalhador ou outro tipo de usuário
-        await Parse.User.logOut(); // Desfaz o login
+        await Parse.User.logOut();
         alert("Erro: Este usuário não é um contratante. Acesso negado.");
       }
     } catch (error) {
-      // Captura erros comuns como "invalid username/password"
       console.error("Erro ao fazer login:", error);
       alert(`Erro: ${error.message}`);
     }
@@ -64,7 +60,6 @@ export default function EmployerLogin() {
         Login de Contratante
       </h1>
 
-      {/* 5. Adicionar o handler onSubmit ao formulário */}
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label htmlFor="email" className="text-[#0A2753] font-semibold mb-1">
@@ -103,9 +98,12 @@ export default function EmployerLogin() {
           Entrar
         </button>
       </form>
-      <p className="text-1xl text-center font-bold text-[#0B2568] mt-6 leading-tight">
-        Não tenho cadastro
-      </p>
+
+      <Link href="/cadastro-contratante">
+        <p className="text-1xl text-center font-bold text-[#0B2568] mt-6 leading-tight hover:text-purple-600 transition cursor-pointer">
+          Não tenho cadastro
+        </p>
+      </Link>
     </main>
   );
 }
