@@ -1,18 +1,21 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function EmployeeLogin() {
   return (
     <main className="min-h-screen bg-white px-6 pt-6 pb-10 max-w-md mx-auto font-sans shadow-md">
       <div className="flex justify-between items-center mb-6">
         <div className="bg-white p-1 rounded-xl w-max">
-          <Image
-            src="/logopages.png"
-            alt="Logo"
-            width={150}
-            height={40}
-            className="rounded-lg"
-          />
+          <Link href="/hero">
+            <Image
+              src="/logopages.png"
+              alt="Logo"
+              width={150}
+              height={40}
+              className="rounded-lg"
+            />
+          </Link>
         </div>
         <Image
           src="/user.png"
@@ -52,9 +55,14 @@ export default function EmployeeLogin() {
           Entrar
         </button>
       </form>
-      <p className="text-1xl text-center font-bold text-[#0B2568] mt-6 leading-tight">
-        Não tenho cadastro
-      </p>
+      <div>
+        <Link
+          href="/employeeRegister"
+          className="text-1xl text-center font-bold text-[#0B2568] mt-6 leading-tight hover:text-purple-600 transition cursor-pointer"
+        >
+          Não tenho cadastro
+        </Link>
+      </div>
     </main>
   );
 }

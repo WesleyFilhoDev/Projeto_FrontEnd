@@ -100,7 +100,7 @@ export default function VacancyEmployer() {
       </h1>
       <div className="flex justify-between items-center mb-4">
         <p className="text-[#0A2753] text-base">Vagas publicadas:</p>
-        <Link href="/vagas/adicionar">
+        <Link href="/vaga">
           <button className="flex items-center gap-1 bg-[#5A2FDA] text-white px-4 py-1.5 rounded-full text-sm font-medium shadow-md hover:bg-[#5b21b6] transition">
             Adicionar
           </button>

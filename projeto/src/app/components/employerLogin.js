@@ -99,7 +99,7 @@ export default function EmployerLogin() {
         </button>
       </form>
 
-      <Link href="/cadastro-contratante">
+      <Link href="/employerSign">
         <p className="text-1xl text-center font-bold text-[#0B2568] mt-6 leading-tight hover:text-purple-600 transition cursor-pointer">
           Não tenho cadastro
         </p>
