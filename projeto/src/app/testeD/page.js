@@ -11,7 +11,7 @@ import EmployeeRegister from "../components/employeeRegister";
 export default function Home() {
   return (
     <>
-      <EmployeeRegister />
+      <VacancyAdd />
     </>
   );
 }

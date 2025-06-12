@@ -1,56 +1,129 @@
 "use client";
 import Image from "next/image";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Parse from "../services/back4app";
 
 export default function VacancyAdd() {
+  const router = useRouter();
+
+  // 1. O estado agora tem campos separados para o endereço
+  const [formData, setFormData] = useState({
+    title: "",
+    workType: "",
+    description: "",
+    requirements: "",
+    payment: "",
+    address: "", // Campo para Rua e Número
+    neighborhood: "", // Campo para Bairro
+    city: "", // Campo para Cidade
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const currentUser = Parse.User.current();
+    if (!currentUser) {
+      alert("Você precisa estar logado como contratante para criar uma vaga.");
+      router.push("/employer-login");
+      return;
+    }
+
+    try {
+      const Employer = Parse.Object.extend("Employer");
+      const employerQuery = new Parse.Query(Employer);
+      employerQuery.equalTo("user", currentUser);
+      const employerProfile = await employerQuery.first();
+
+      if (!employerProfile) {
+        alert("Erro: Perfil de contratante não encontrado para este usuário.");
+        return;
+      }
+
+      const Vacancy = Parse.Object.extend("AvailableVacancy");
+      const newVacancy = new Vacancy();
+
+      // 2. Combina os campos de endereço em uma única string
+      const fullAddress = `${formData.address}, ${formData.neighborhood}, ${formData.city}`;
+
+      // Preenche os campos da vaga
+      newVacancy.set("title", formData.title);
+      newVacancy.set("workType", formData.workType);
+      newVacancy.set("description", formData.description);
+      newVacancy.set("requirements", formData.requirements);
+      newVacancy.set("payment", Number(formData.payment));
+      newVacancy.set("neighborhood", formData.neighborhood);
+      newVacancy.set("address", formData.address);
+      newVacancy.set("city", formData.city);
+      newVacancy.set("status", "Aberta");
+
+      // Salva o endereço combinado na coluna "address" do Back4App
+      newVacancy.set("address", fullAddress);
+
+      // Associa a vaga ao contratante
+      newVacancy.set("employer", employerProfile);
+
+      await newVacancy.save();
+
+      alert("Nova vaga criada com sucesso!");
+      router.push("/dashboard-contratante");
+    } catch (error) {
+      console.error("Erro ao criar vaga:", error);
+      alert(`Erro: ${error.message}`);
+    }
+  };
+
+  // 3. O array de campos agora reflete os inputs separados
+  const formFields = [
+    { label: "Título", id: "title", type: "text" },
+    { label: "Tipo de trabalho", id: "workType", type: "text" },
+    { label: "Descrição", id: "description", type: "textarea" },
+    { label: "Requisitos", id: "requirements", type: "text" },
+    { label: "Salário", id: "payment", type: "number" },
+    { label: "Endereço (Rua, Nº)", id: "address", type: "text" },
+    { label: "Bairro", id: "neighborhood", type: "text" },
+    { label: "Cidade", id: "city", type: "text" },
+  ];
+
   return (
     <main className="min-h-screen bg-white px-6 pt-6 pb-10 max-w-md mx-auto font-sans shadow-md">
-      <div className="flex justify-between items-center mb-6">
-        <div className="bg-white p-1 rounded-xl w-max">
-          <Image
-            src="/logopages.png"
-            alt="Logo"
-            width={150}
-            height={40}
-            className="rounded-lg"
-          />
-        </div>
-        <Image
-          src="/user.png"
-          alt="Avatar"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
-      </div>
-
+      {/* ... seu cabeçalho ... */}
       <h1 className="text-3xl font-bold text-[#0B2568] mb-6 leading-tight">
         Digite os dados <br /> da nova vaga
       </h1>
 
-      <form className="flex flex-col gap-4">
-        {[
-          "Título",
-          "Tipo de trabalho",
-          "Descrição",
-          "Requisitos",
-          "Salário",
-          "Endereço",
-          "Bairro",
-          "Cidade",
-        ].map((label) => (
-          <div key={label} className="flex flex-col">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        {formFields.map((field) => (
+          <div key={field.id} className="flex flex-col">
             <label
-              htmlFor={label.toLowerCase()}
+              htmlFor={field.id}
               className="text-[#0A2753] font-semibold mb-1"
             >
-              {label}:
+              {field.label}:
             </label>
-            <input
-              type={label === "Salário" ? "number" : "text"}
-              step={label === "Salário" ? "any" : undefined}
-              id={label.toLowerCase()}
-              className="bg-[#E5E5E5] text-black rounded-full px-4 py-2 outline-none"
-            />
+            {field.type === "textarea" ? (
+              <textarea
+                id={field.id}
+                value={formData[field.id]}
+                onChange={handleInputChange}
+                required
+                className="bg-[#E5E5E5] text-black rounded-2xl px-4 py-2 outline-none h-24"
+              />
+            ) : (
+              <input
+                type={field.type}
+                id={field.id}
+                value={formData[field.id]}
+                onChange={handleInputChange}
+                required
+                className="bg-[#E5E5E5] text-black rounded-full px-4 py-2 outline-none"
+              />
+            )}
           </div>
         ))}
 
