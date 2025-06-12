@@ -73,7 +73,26 @@ export default function VacancyEmployer() {
 
   return (
     <main className="min-h-screen bg-white px-4 pt-6 pb-10 max-w-md mx-auto font-sans">
-      {/* ... seu cabeçalho ... */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center gap-2">
+          <div className="absolute top-4 left-4 bg-white p-1 rounded-xl w-max">
+            <Image
+              src="/logopages.png"
+              alt="Logo"
+              width={150}
+              height={40}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+        <Image
+          src="/user.png"
+          alt="/Avatar"
+          width={36}
+          height={36}
+          className="rounded-full"
+        />
+      </div>
       <p className="text-[#0A2753] text-base mb-4">Olá, {userName}!</p>
       <h1 className="text-3xl font-bold text-[#0B2568] mb-1">
         Quem você está procurando?
@@ -108,7 +127,6 @@ export default function VacancyEmployer() {
               Deletar vaga
             </button>
 
-            {/* 6. O botão Editar agora é um Link que passa o ID da vaga na URL */}
             <Link href={`/vagas/editar/${vaga.id}`}>
               <button className="absolute top-10 left-3 bg-white opacity-49 text-[#0B2568] text-xs px-3 py-1 rounded-full shadow hover:bg-gray-200 transition">
                 Editar dados da vaga
