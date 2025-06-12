@@ -17,13 +17,6 @@ export default function EmployeeLogin() {
             />
           </Link>
         </div>
-        <Image
-          src="/user.png"
-          alt="Avatar"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
       </div>
 
       <h1 className="text-3xl font-bold text-[#0B2568] mb-6 leading-tight">
