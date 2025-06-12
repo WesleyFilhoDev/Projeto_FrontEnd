@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import VacancyCard from "./vacancycard";
+import VacancyCard from "../components/vacancyCard";
 
 export default function VacancyPage() {
   const vacancies = [

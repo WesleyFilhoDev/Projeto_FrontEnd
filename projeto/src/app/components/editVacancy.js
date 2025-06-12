@@ -1,15 +1,30 @@
+// Indica que esse componente será renderizado no lado do cliente
 "use client";
+
+// Importa hooks do React para controlar estado e efeitos colaterais
 import { useState, useEffect } from "react";
+
+// Importa o componente de imagem do Next.js (não é usado aqui)
 import Image from "next/image";
+
+// Importa ferramentas de navegação e leitura de parâmetros da URL
 import { useRouter, useParams } from "next/navigation";
+
+// Importa o Parse já configurado para conectar com o Back4App
 import Parse from "../services/back4app";
 
+// Componente principal da página de edição de vagas
 export default function EditVacancy() {
+  // Hook do Next.js para navegação entre páginas
   const router = useRouter();
+
+  // Hook do Next.js para pegar os parâmetros da URL
   const params = useParams();
+
+  // Pega o ID da vaga da URL
   const vacancyId = params.id;
 
-  // 1. O estado agora inclui todos os campos da vaga
+  // Estado que armazena os dados do formulário da vaga
   const [formData, setFormData] = useState({
     title: "",
     workType: "",
@@ -20,18 +35,25 @@ export default function EditVacancy() {
     neighborhood: "",
     city: "",
   });
+
+  // Estado para exibir carregamento até os dados serem buscados
   const [isLoading, setIsLoading] = useState(true);
 
-  // READ: Busca e preenche todos os dados da vaga
+  // Hook de efeito que roda ao carregar a página ou quando o ID da vaga mudar
   useEffect(() => {
     if (vacancyId) {
       const fetchVacancyData = async () => {
+        // Define a classe da vaga no Back4App
         const Vacancy = Parse.Object.extend("AvailableVacancy");
+
+        // Cria uma consulta para buscar a vaga pelo ID
         const query = new Parse.Query(Vacancy);
+
         try {
+          // Busca a vaga com o ID especificado
           const vacancy = await query.get(vacancyId);
 
-          // 2. Preenche todos os campos do formulário com os dados do Back4App
+          // Preenche o formulário com os dados da vaga do Back4App
           setFormData({
             title: vacancy.get("title") || "",
             workType: vacancy.get("workType") || "",
@@ -46,27 +68,34 @@ export default function EditVacancy() {
           console.error("Erro ao buscar vaga:", error);
           alert("Erro: Vaga não encontrada.");
         } finally {
+          // Desativa o carregamento
           setIsLoading(false);
         }
       };
+
+      // Executa a função de busca
       fetchVacancyData();
     }
   }, [vacancyId]);
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  // UPDATE: Salva as alterações de todos os campos
+  // Função para lidar com o envio do formulário (atualização da vaga)
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
+
     const Vacancy = Parse.Object.extend("AvailableVacancy");
     const query = new Parse.Query(Vacancy);
+
     try {
+      // Busca a vaga a ser atualizada pelo ID
       const vacancyToUpdate = await query.get(vacancyId);
 
-      // 3. Salva todos os campos atualizados no Back4App
+      // Atualiza os campos da vaga com os dados do formulário
       vacancyToUpdate.set("title", formData.title);
       vacancyToUpdate.set("workType", formData.workType);
       vacancyToUpdate.set("description", formData.description);
@@ -76,9 +105,12 @@ export default function EditVacancy() {
       vacancyToUpdate.set("neighborhood", formData.neighborhood);
       vacancyToUpdate.set("city", formData.city);
 
+      // Salva a vaga atualizada no Back4App
       await vacancyToUpdate.save();
 
       alert("Vaga atualizada com sucesso!");
+
+      // Redireciona para a página de vagas do empregador
       router.push("/vacancyEmployer");
     } catch (error) {
       console.error("Erro ao atualizar vaga:", error);
@@ -86,11 +118,12 @@ export default function EditVacancy() {
     }
   };
 
+  // Exibe um texto de carregamento enquanto os dados são buscados
   if (isLoading) {
     return <p className="text-center mt-10">Carregando dados da vaga...</p>;
   }
 
-  // 4. Array de campos para gerar o formulário de edição dinamicamente
+  // Array que define os campos do formulário dinamicamente
   const formFields = [
     { label: "Título", id: "title", type: "text" },
     { label: "Tipo de trabalho", id: "workType", type: "text" },
@@ -102,6 +135,7 @@ export default function EditVacancy() {
     { label: "Cidade", id: "city", type: "text" },
   ];
 
+  // JSX que renderiza a interface
   return (
     <main className="min-h-screen bg-white px-6 pt-6 pb-10 max-w-md mx-auto font-sans shadow-md">
       <h1 className="text-3xl font-bold text-[#0B2568] mb-6 leading-tight">
@@ -117,6 +151,8 @@ export default function EditVacancy() {
             >
               {field.label}:
             </label>
+
+            {/* Campo de texto ou textarea dependendo do tipo */}
             {field.type === "textarea" ? (
               <textarea
                 id={field.id}
@@ -138,6 +174,7 @@ export default function EditVacancy() {
           </div>
         ))}
 
+        {/* Botão de envio */}
         <button
           type="submit"
           className="bg-[#673DE6] text-white rounded-full py-2 text-center mt-4 hover:bg-[#5a32cc] transition"
