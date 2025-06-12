@@ -60,13 +60,6 @@ export default function EmployerLogin() {
             className="rounded-lg"
           />
         </div>
-        <Image
-          src="/user.png" // Ícone de usuário (genérico)
-          alt="Avatar"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
       </div>
 
       {/* Título da tela */}

@@ -95,13 +95,6 @@ export default function EmployerSign() {
             className="rounded-lg"
           />
         </div>
-        <Image
-          src="/user.png"
-          alt="Avatar"
-          width={36}
-          height={36}
-          className="rounded-full"
-        />
       </div>
 
       {/* Título da página */}
