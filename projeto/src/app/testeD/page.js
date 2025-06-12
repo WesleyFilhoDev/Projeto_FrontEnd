@@ -8,7 +8,7 @@ import EditVacancy from "../components/editVacancy";
 export default function Home() {
   return (
     <>
-      <EditVacancy />
+      <EmployerSign />
     </>
   );
 }
